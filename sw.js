@@ -1,9 +1,13 @@
-const CACHE = "micu-ref-v1";
-const ASSETS = [
+const CACHE = "micu-ref-v2";
+self.window = self;
+importScripts("js/data.js");
+
+const SHELL = [
   "./", "index.html", "css/style.css", "js/data.js", "js/app.js", "manifest.webmanifest",
-  "icons/icon.svg", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png",
-  "docs/ecpr/page-1.png", "docs/ecpr/page-2.png", "docs/ecpr/page-3.png", "docs/ecpr/ECPR.pdf"
+  "icons/icon.svg", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"
 ];
+// Page images are precached so every document works offline; PDFs are cached when first opened.
+const ASSETS = SHELL.concat(self.TOPICS.flatMap((t) => t.pages.map((p) => p.img)));
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));
@@ -17,7 +21,7 @@ self.addEventListener("activate", (e) => {
 
 // Network first so policy updates show immediately when online; cache fallback when offline.
 self.addEventListener("fetch", (e) => {
-  if (e.request.method !== "GET") return;
+  if (e.request.method !== "GET" || !e.request.url.startsWith(self.location.origin)) return;
   e.respondWith(
     fetch(e.request)
       .then((res) => {
