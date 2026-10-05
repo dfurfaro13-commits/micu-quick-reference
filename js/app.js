@@ -103,10 +103,12 @@
     function walk() {
       let at = first;
       let result = null;
+      let action = null;
       const trail = path.map((k) => {
         const s = byId[at];
         const o = s[k];
         const entry = { s, k, o };
+        if (o.action) action = o;
         if (o.go) at = o.go;
         else {
           result = o;
@@ -114,17 +116,18 @@
         }
         return entry;
       });
-      return { at, result, trail };
+      return { at, result, trail, action };
     }
 
     function render() {
-      const { at, result, trail } = walk();
+      const { at, result, trail, action } = walk();
+      const actionHtml = action ? `<div class="wiz-action ${action.tone || ""}"><div class="res-label">Action</div>${md(action.t)}</div>` : "";
       const trailHtml = trail.length
         ? `<details class="trail"><summary>Your answers (${trail.length})</summary><ol>${trail
             .map(
               (e, i) => `<li><button class="trail-item" data-to="${i}">
                 <span class="tq">${esc(e.s.short || e.s.q)}</span>
-                <span class="ta">${esc(e.k === "yes" ? e.s.yesLabel || "Yes" : "No")}${e.o.t && e.o.go ? " · " + esc(e.o.t) : ""}</span>
+                <span class="ta">${esc(e.k === "yes" ? e.s.yesLabel || "Yes" : "No")}${e.o.t && e.o.go && !e.o.action ? " · " + esc(e.o.t) : ""}</span>
               </button></li>`
             )
             .join("")}</ol><p class="trail-hint">Tap an answer to change it.</p></details>`
@@ -158,7 +161,7 @@
       const nav = trail.length
         ? `<div class="wiz-nav"><button class="btn" data-nav="back">&#8592; Back</button><button class="btn" data-nav="reset">Start over</button></div>`
         : "";
-      el.innerHTML = trailHtml + main + nav;
+      el.innerHTML = trailHtml + actionHtml + main + nav;
 
       el.querySelectorAll("[data-ans]").forEach((b) => (b.onclick = () => { path.push(b.dataset.ans); render(); focusTop(); }));
       el.querySelectorAll("[data-to]").forEach((b) => (b.onclick = () => { path = path.slice(0, +b.dataset.to); render(); focusTop(); }));

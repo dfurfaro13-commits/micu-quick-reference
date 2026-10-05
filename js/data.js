@@ -294,30 +294,30 @@ window.TOPICS = [
         page: 0,
         blocks: [
           { p: "For REPEAT blood cultures: ≤72 hrs since prior. For new or >72 hrs, use the [Initial Blood Cultures algorithm](#/t/bc-initial/view/algorithm)." },
-          { flow: [
+          { interactive: true, flow: [
             { section: "Does the patient have:" },
-            { id: "r1", q: "Positive blood cultures (or Gram positive cocci on Gram stain or culture, not yet speciated) with **ONE** of the following:",
+            { id: "r1", short: "Positive BC with a listed organism?", q: "Positive blood cultures (or Gram positive cocci on Gram stain or culture, not yet speciated) with **ONE** of the following:",
               list: [
                 "Staph aureus", "Staph lugdunensis", "Candida sp.", "Gram negative rods in setting of IVDU", "Enterococcus sp.",
                 "Viridans group Streptococcus", "β-hemolytic Streptococcus", "Any organism associated with suspected endovascular infection"
               ],
               defs: ["endo"],
-              yes: { t: "Repeat 2 sets of peripheral BC daily from 2 different sites until negative for 48 hours. Recommend Infectious Diseases consult.", tone: "green", go: "r7" },
+              yes: { t: "Repeat 2 sets of peripheral BC daily from 2 different sites until negative for 48 hours. Recommend Infectious Diseases consult.", tone: "green", go: "r7", action: true },
               no: { go: "r2" } },
-            { id: "r2", q: "Diagnosed with a central-line associated bloodstream infection (CLABSI) in the last 72 hours **AND** retained catheter?",
-              yes: { t: "Repeat 2 sets of peripheral BC from 2 different sites ONCE and remove central line if possible. Consider discussion with PEVA or ID regarding need for line removal.", tone: "green", go: "r7" },
+            { id: "r2", short: "CLABSI in last 72 hours with retained catheter?", q: "Diagnosed with a central-line associated bloodstream infection (CLABSI) in the last 72 hours **AND** retained catheter?",
+              yes: { t: "Repeat 2 sets of peripheral BC from 2 different sites ONCE and remove central line if possible. Consider discussion with PEVA or ID regarding need for line removal.", tone: "green", go: "r7", action: true },
               no: { go: "r3" } },
-            { id: "r3", q: "Persistent fever or leukocytosis **AND** 2 sets of negative BC within 48 hours while other sources are being evaluated?",
+            { id: "r3", short: "Persistent fever/leukocytosis with 2 negative sets within 48 hours?", q: "Persistent fever or leukocytosis **AND** 2 sets of negative BC within 48 hours while other sources are being evaluated?",
               yes: { t: "Repeat blood cultures not indicated if <72 hours since prior", tone: "red" }, no: { go: "r4" } },
-            { id: "r4", q: "Clinical response after starting antibiotics and presumed source control and no concern for endovascular infection?",
+            { id: "r4", short: "Clinical response, source control, no endovascular concern?", q: "Clinical response after starting antibiotics and presumed source control and no concern for endovascular infection?",
               yes: { t: "Repeat blood cultures not indicated if <72 hours since prior", tone: "red" }, no: { go: "r5" } },
-            { id: "r5", q: "Cultures likely to represent contamination (e.g. single BC with diphtheroids, Cutibacterium sp., coag-neg Staph, micrococci, Bacillus sp., lactobacilli, veillonella, peptostreptococci)?",
+            { id: "r5", short: "Likely contamination?", q: "Cultures likely to represent contamination (e.g. single BC with diphtheroids, Cutibacterium sp., coag-neg Staph, micrococci, Bacillus sp., lactobacilli, veillonella, peptostreptococci)?",
               yes: { t: "Repeat blood cultures not indicated if <72 hours since prior", tone: "red" }, no: { go: "r6" } },
-            { id: "r6", q: "Still concern for infectious cause?",
+            { id: "r6", short: "Still concern for infectious cause?", q: "Still concern for infectious cause?",
               yes: { t: "Consider Infectious Diseases consult", tone: "amber" }, no: { t: "Repeat blood cultures not indicated if <72 hours since prior", tone: "red" } },
 
             { section: "After repeat cultures", tone: "green" },
-            { id: "r7", q: "Were two sets of BC able to be obtained?",
+            { id: "r7", short: "Two sets of BC obtained?", q: "Were two sets of BC able to be obtained?",
               yes: { t: "Blood culture work up complete", tone: "green" }, no: { t: "Proceed to Difficult Blood Culture Logistics Algorithm", tone: "amber" } }
           ]},
           { note: "This guideline is not a substitute for clinical judgment. Please consider ID consultation for assistance with diagnosis and management.", tone: "info" }
