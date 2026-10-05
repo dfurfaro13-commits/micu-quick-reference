@@ -3,12 +3,12 @@ function pg(id, n, w, h, titles) {
   return Array.from({ length: n }, (_, i) => ({ img: `docs/${id}/page-${i + 1}.png`, title: (titles || {})[i + 1] || "", w, h }));
 }
 
-window.CATEGORIES = ["Resuscitation & shock", "Infection", "Death, donation & ethics"];
+window.CATEGORIES = ["Resuscitation and Shock", "Infection", "Death, Donation, and Ethics"];
 
 window.TOPICS = [
   {
     id: "ecpr",
-    category: "Resuscitation & shock",
+    category: "Resuscitation and Shock",
     title: "ECPR",
     summary: "ECPR Pathway Criteria, IHCA criteria, OB arrest workflow",
     tags: "ecpr ecmo cpr cardiac arrest ihca ohca ed arrest peripartum or arrest obstetric code blue cannulation cath lab",
@@ -127,7 +127,7 @@ window.TOPICS = [
 
   {
     id: "shock-team",
-    category: "Resuscitation & shock",
+    category: "Resuscitation and Shock",
     title: "Shock Team",
     summary: "Pilot activation criteria and process",
     tags: "shock team cardiogenic mixed shock activation hypotension lactate cardiology pilot zoom vasoactive pressor",
@@ -333,21 +333,21 @@ window.TOPICS = [
 
   {
     id: "brain-death",
-    category: "Death, donation & ethics",
+    category: "Death, Donation, and Ethics",
     title: "Brain Death",
     summary: "Policy PR-12: death by neurologic criteria",
     tags: "brain death bd dnc neurologic criteria apnea test ancillary spect angiography ecmo neds pr-12 declaration oculovestibular",
     source: { file: "Brain death testing.pdf", pages: 10, version: "Policy PR-12. Revised 5/26 (MEC 5/20/26). Next review 5/29" },
     pdf: "docs/brain-death/brain-death.pdf",
-    pages: pg("brain-death", 10, 612, 792, { 1: "Purpose & policy statement", 2: "Guidelines for implementation", 3: "Prerequisites", 4: "Timing & neurologic exam", 5: "Apnea & ancillary testing", 6: "Special populations", 7: "Declaration workflow", 8: "Approvals", 9: "Attachment A: Checklist", 10: "Attachment A: Checklist (cont.)" }),
+    pages: pg("brain-death", 10, 612, 792, { 1: "Purpose and Policy Statement", 2: "Guidelines for Implementation", 3: "Prerequisites", 4: "Timing and Neurologic Exam", 5: "Apnea and Ancillary Testing", 6: "Special Populations", 7: "Declaration Workflow", 8: "Approvals", 9: "Attachment A: Checklist", 10: "Attachment A: Checklist (cont.)" }),
     views: [
       {
         id: "before",
-        title: "Before testing",
+        title: "Before Testing",
         src: "pages 1–4",
         page: 2,
         blocks: [
-          { h: "Who and when" },
+          { h: "Who and When" },
           { ul: [
             "Refer all patients whose severe neurologic injury may result in BD/DNC to **New England Donor Services (NEDS), 800-446-6362**, before BD/DNC testing and before conversations about comfort care or withdrawal.",
             "Initiate testing in all appropriate patients regardless of donation eligibility or family intent. Explicit family/surrogate consent is not required (surrogate may refuse testing if a final decision for comfort care and withdrawal has been made).",
@@ -362,19 +362,19 @@ window.TOPICS = [
             { t: "**No potentially reversible mimic**, including:", sub: [
               "Hypothermia below 36 °C",
               "Total paralysis from neuromuscular blockade or peripheral nerve disease",
-              "Severe metabolic disease (hepatic, renal, hyperosmolar, hypercarbic, hypoxic, hypotensive or septic encephalopathy)",
+              "Severe metabolic disease (hepatic, renal, hyperosmolar, hypercarbic, hypoxic, hypotensive, or septic encephalopathy)",
               "Post-ictal state after severe or prolonged seizures, for up to 24 hours",
               "Sedative or depressive drugs"
             ]}
           ]},
-          { h: "Targets before evaluation" },
+          { h: "Targets Before Evaluation" },
           { table: { head: ["", "Target"], rows: [
             ["Blood pressure", "SBP ≥ 100 mm Hg and MAP ≥ 75 mm Hg"],
             ["Core temperature", "≥ 36 °C (96.8 °F) per checklist"],
             ["Phenobarbital (if given or known medication)", "< 5 µg/mL or below lower limit of detection"],
             ["Blood alcohol", "< 80 mg/dL"]
           ]}},
-          { h: "Metabolic derangements to correct" },
+          { h: "Metabolic Derangements to Correct" },
           { p: "Practical suggestions based on consensus. There are no definitive cut-off values that exclude evaluation; clinical context and judgment are required." },
           { table: { head: ["Lab", "Value suggesting derangement"], rows: [
             ["Ammonia", "≥ 75 µmol/L"],
@@ -388,26 +388,26 @@ window.TOPICS = [
             ["Total T4 (if concern for endocrinopathy)", "< 3 or > 30 mg/dL"],
             ["Free T4 (if concern for endocrinopathy)", "≤ 0.3 or > 5 ng/dL"]
           ]}},
-          { h: "After cardiac arrest with TTM" },
+          { h: "After Cardiac Arrest with TTM" },
           { p: "Delay the exam at least **24 hours after core temperature returns to 36 °C**, or longer depending on CNS-depressant medications (more than 5 half-lives may be needed; hypothermia prolongs clearance). If uncertain about clearance, do a complete exam and apnea test **and** obtain an ancillary study." },
           { note: "**Primary infratentorial (isolated brainstem) injury:** ancillary testing is recommended to demonstrate whole brain death even if the exam and apnea test are consistent with BD/DNC.", tone: "warn" }
         ]
       },
       {
         id: "exam",
-        title: "Exam & apnea test",
+        title: "Exam and Apnea Test",
         src: "pages 4–5, 9–10",
         page: 3,
         blocks: [
-          { h: "Clinical exam" },
+          { h: "Clinical Exam" },
           { ol: [
             "**Coma:** no withdrawal from painful stimuli (supraorbital, TMJ, sternum, or nail beds). Spinal-level movements (including Lazarus sign) do not preclude BD/DNC; decerebrate or decorticate posturing does.",
             "**Pupils:** previously healthy pupils unreactive to bright light bilaterally (checklist: 3–9 mm).",
-            "**Cranial nerves:** no corneal reflex, no oculocephalic reflex (doll’s eyes), no facial movement, no gag or cough with deep tracheal suctioning.",
+            "**Cranial nerves:** no corneal reflex, no oculocephalic reflex (doll’s eyes), no facial movement, and no gag or cough with deep tracheal suctioning.",
             "**Oculovestibular:** head at 30°, clear canals (check tympanic membrane integrity in trauma). Slow irrigation of ice-cold water, 10 mL/min for 5 min, into each ear: no eye movement."
           ]},
           { note: "If oculocephalic testing is not possible because of cervical spine/skull base concern, oculovestibular testing can be used without ancillary testing, provided all other elements are satisfied.", tone: "info" },
-          { h: "Apnea test" },
+          { h: "Apnea Test" },
           { ol: [
             "Ventilator adjusted to **PaCO2 35–45 mm Hg**. Off all sedatives and paralytics; correct hypotension as best possible.",
             "**FiO2 100% for 5 minutes.** Record baseline vitals and ABG.",
@@ -416,7 +416,7 @@ window.TOPICS = [
             "At any event or at 10 minutes: draw ABG and return to the previous ventilator settings."
           ]},
           { note: "**Abort** for visible cyanosis or SaO2 < 85%. Spontaneous respirations indicate residual brainstem function.", tone: "warn" },
-          { h: "Apnea test supports BD/DNC if" },
+          { h: "Apnea Test Supports BD/DNC If" },
           { ul: [
             "PaCO2 **≥ 60 mm Hg and ≥ 20 mm Hg** above pre-test baseline",
             "Arterial pH **< 7.3**",
@@ -428,11 +428,11 @@ window.TOPICS = [
       },
       {
         id: "ancillary",
-        title: "Ancillary testing & special populations",
+        title: "Ancillary Testing and Special Populations",
         src: "pages 5–7",
         page: 4,
         blocks: [
-          { h: "Ancillary testing" },
+          { h: "Ancillary Testing" },
           { p: "Not a substitute for the clinical exam. The exam and apnea test must be done to the fullest extent possible and be consistent with BD/DNC before ancillary testing." },
           { ul: [ { t: "Typical indications:", sub: [
             "Inability to correct metabolic derangements",
@@ -454,29 +454,29 @@ window.TOPICS = [
             "**VA-ECMO:** sample arterial blood from both the distal arterial line and the post-oxygenator circuit. Both must meet pH and PaCO2 targets.",
             "Ancillary testing: nuclear medicine study is **preferred** in VA-ECMO. Angiography may be hard to interpret (competing circulations). TCD may be inaccurate (relies on pulsatile flow)."
           ]},
-          { h: "Other populations" },
+          { h: "Other Populations" },
           { ul: [
             "**Age < 18:** 2 examiners, at least 12 hours apart, apnea test at each. SBP and MAP ≥ 5th percentile for age. Age < 6 months: consult Boston Children’s Hospital Neurology.",
-            "**Pregnancy** is not a contraindication. Multidisciplinary discussion with maternal-fetal medicine, neonatology and neurology before, during and after declaration."
+            "**Pregnancy** is not a contraindication. Multidisciplinary discussion with maternal-fetal medicine, neonatology, and neurology before, during, and after declaration."
           ]}
         ]
       },
       {
         id: "declaration",
-        title: "Declaration & family",
+        title: "Declaration and Family",
         src: "pages 1–3, 7",
         page: 6,
         blocks: [
-          { h: "Declaration workflow" },
+          { h: "Declaration Workflow" },
           { ol: [
             "NEDS referral (**800-446-6362**) initiated before testing and pronouncement.",
-            "Findings recorded by the critical care, neurology or neurosurgery attending (or neurology/neurosurgery resident with attending signature).",
-            "Death note: criteria used, date, time and attending signature.",
+            "Findings recorded by the critical care, neurology, or neurosurgery attending (or neurology/neurosurgery resident with attending signature).",
+            "Death note: criteria used, date, time, and attending signature.",
             "Complete the **Brain Death Declaration Checklist** (Attachment A) and place in the paper chart. Attending signature required.",
-            "After declaration, and once NEDS determines no potential for donation, the ventilator and support may be disconnected by RT, RN, resident or attending on the written order of the attending or designee.",
+            "After declaration, and once NEDS determines no potential for donation, the ventilator and support may be disconnected by RT, RN, resident, or attending on the written order of the attending or designee.",
             "Consider autopsy and medical examiner policies before disposition of the body."
           ]},
-          { h: "Talking with family" },
+          { h: "Talking with Family" },
           { ul: [
             "The declaring attending is responsible for the declaration and the explanation to the family.",
             "Explain clearly that BD/DNC is death, with Interpreter Services when applicable. Avoid terms such as “disconnecting life support” or “letting him/her die.”",
@@ -489,21 +489,21 @@ window.TOPICS = [
 
   {
     id: "dcd",
-    category: "Death, donation & ethics",
+    category: "Death, Donation, and Ethics",
     title: "DCD Organ Donation",
     summary: "Policy PR-13: donation after circulatory death",
     tags: "dcd organ donation circulatory death neds withdrawal extubation heparin cmo pronounce declaration pr-13 or pacu",
     source: { file: "Organ donation after DCD.pdf", pages: 15, version: "Policy PR-13. Revised 3/25 (MEC 3/19/25). Next review 3/28" },
     pdf: "docs/dcd/dcd.pdf",
-    pages: pg("dcd", 15, 612, 792, { 1: "Policy", 5: "Donor management", 6: "Transport, extubation & determining death", 8: "Attachments & approvals", 9: "Attachment A: Flowchart", 10: "Attachment B: Workflow checklist", 11: "Attachment B (cont.)", 12: "Attachment B: OR vs PACU", 13: "Attachment C: Declaration of death checklist", 14: "Attachment D: Consent for donor management", 15: "Attachment E: Maastricht & UDDA" }),
+    pages: pg("dcd", 15, 612, 792, { 1: "Policy", 5: "Donor Management", 6: "Transport, Extubation, and Determining Death", 8: "Attachments and Approvals", 9: "Attachment A: Flowchart", 10: "Attachment B: Workflow Checklist", 11: "Attachment B (cont.)", 12: "Attachment B: OR vs PACU", 13: "Attachment C: Declaration of Death Checklist", 14: "Attachment D: Consent for Donor Management", 15: "Attachment E: Maastricht and UDDA" }),
     views: [
       {
         id: "referral",
-        title: "Referral, consent & huddle",
+        title: "Referral, Consent, and Huddle",
         src: "pages 1–4, 10",
         page: 1,
         blocks: [
-          { h: "Referral criteria" },
+          { h: "Referral Criteria" },
           { ul: ["Patient on a ventilator (ECMO is not excluded).", "End-of-life discussion with patient and/or surrogate is planned."] },
           { note: "Refer to **NEDS** before any end-of-life discussion when possible, including discussions of de-escalation of care.", tone: "warn" },
           { h: "Consent" },
@@ -514,7 +514,7 @@ window.TOPICS = [
             "A separate signed hospital consent is required for any pre-mortem procedures or medications (Attachment D).",
             "Patients consented for DCD are not required to be full code (unlike DBD)."
           ]},
-          { h: "Before withdrawal" },
+          { h: "Before Withdrawal" },
           { ul: [
             "ICU physician pre-screens all consented cases with the **Medical Examiner** regardless of circumstances: **800-962-7877**.",
             "**Team huddle** with NEDS and BIDMC staff several hours before extubation (Attachment B checklist).",
@@ -526,7 +526,7 @@ window.TOPICS = [
             "Agree the plan for continued care if the patient does not become a donor.",
             "Palliative Care questions: pager **#32502**."
           ]},
-          { h: "Staffing and separation" },
+          { h: "Staffing and Separation" },
           { ul: [
             "**Attending must be present for extubation**; a clinician designee must be present from extubation to the 2-hour limit. A critical care fellow or APP may participate under direct attending oversight.",
             "The declaring physician must not be associated with the transplant team or caring for a potential recipient.",
@@ -536,7 +536,7 @@ window.TOPICS = [
       },
       {
         id: "withdrawal",
-        title: "Withdrawal & declaration of death",
+        title: "Withdrawal and Declaration of Death",
         src: "pages 4–7, 10–13",
         page: 5,
         blocks: [
@@ -545,14 +545,14 @@ window.TOPICS = [
             "**No neuromuscular blockade for ≥ 1 hour** before extubation; assess return of function (CC-#15) or consider reversal (CCG-#2).",
             "Discontinue **propofol** (except for refractory seizures).",
             "Existing opioid/benzodiazepine infusions: decrease or stop if not compromising comfort. Continuing them for comfort during CMO is acceptable.",
-            "Orders for pain, agitation, air hunger and noisy secretions written and medication on hand before extubation (e.g. opioid plus benzodiazepine; consider anticholinergic).",
+            "Orders for pain, agitation, air hunger, and noisy secretions written and medication on hand before extubation (e.g. opioid plus benzodiazepine; consider anticholinergic).",
             "Comfort-focused medications at extubation per CG-28. Consider an anticipatory opioid dose before extubation.",
             "**Heparin** (specific consent; after CMO and if agreed by NEDS): typically just before extubation, usual dose **30,000 units**. RN gives IV push, timing at NEDS coordinator’s discretion.",
             "Vasodilators: only after CMO, if agreed by NEDS, before the heart stops, and with specific informed consent."
           ]},
           { h: "Draping" },
-          { p: "Drapes must not obscure the clavicles, intercostal muscles, face or nares. Consider translucent drape (Ioban). Head of bed at 30° for respiratory comfort." },
-          { h: "Declaration of death" },
+          { p: "Drapes must not obscure the clavicles, intercostal muscles, face, or nares. Consider translucent drape (Ioban). Head of bed at 30° for respiratory comfort." },
+          { h: "Declaration of Death" },
           { ul: [
             "**5 minutes of pulselessness** before pronouncement: asystole, or PEA with zero pulse pressure.",
             "**Arterial line present:** 5 minutes continuous zero pulse pressure on the running waveform, simultaneous with 5 minutes of observed apnea.",
@@ -571,17 +571,17 @@ window.TOPICS = [
       },
       {
         id: "management",
-        title: "Donor management",
+        title: "Donor Management",
         src: "pages 5, 7–8",
         page: 4,
         blocks: [
           { p: "Under NEDS direction, after consent for donation and with a physician order." },
           { ul: [
-            "Stat labs/tests may include: electrolytes, glucose, PT/PTT, ABO, ABG, CBC with differential, lactate, BUN, creatinine, LFTs, total and direct bilirubin, albumin, amylase, lipase, HgbA1c, urinalysis, blood/urine/sputum cultures, sputum Gram stain, chest X-ray, bronchoscopy.",
+            "Stat labs/tests may include: electrolytes, glucose, PT/PTT, ABO, ABG, CBC with differential, lactate, BUN, creatinine, LFTs, total and direct bilirubin, albumin, amylase, lipase, HgbA1c, urinalysis, blood/urine/sputum cultures, sputum Gram stain, chest X-ray, and bronchoscopy.",
             "Stat serology and tissue typing (NEDS arranges).",
             "Hemodynamic support with pressors and/or fluids until CMO and withdrawal are initiated."
           ]},
-          { h: "Abnormal parameters to treat" },
+          { h: "Abnormal Parameters to Treat" },
           { table: { head: ["Abnormality", "Treatment"], rows: [
             ["Electrolytes", "Change IV solutions, rates, and adjust additives"],
             ["ABG", "Alter ventilator settings"],
@@ -600,17 +600,17 @@ window.TOPICS = [
 
   {
     id: "cp26",
-    category: "Death, donation & ethics",
-    title: "Futile & Inappropriate Interventions",
+    category: "Death, Donation, and Ethics",
+    title: "Futile and Inappropriate Interventions",
     summary: "Policy CP-26: process when disagreement persists",
     tags: "futile futility potentially inappropriate ethics disagreement surrogate cp-26 ethics support service specialist committee review committee transfer",
     source: { file: "CP26.pdf", pages: 12, version: "Policy CP-26. Revised 6/25 (MEC 6/18/2025). Next review 6/28" },
     pdf: "docs/cp26/cp26.pdf",
-    pages: pg("cp26", 12, 612, 792, { 1: "Definitions", 2: "General application", 4: "Steps when disagreement persists", 9: "Treatment during disagreement & approvals", 11: "Exhibit A", 12: "Appendix 1" }),
+    pages: pg("cp26", 12, 612, 792, { 1: "Definitions", 2: "General Application", 4: "Steps When Disagreement Persists", 9: "Treatment During Disagreement and Approvals", 11: "Exhibit A", 12: "Appendix 1" }),
     views: [
       {
         id: "definitions",
-        title: "Definitions & principles",
+        title: "Definitions and Principles",
         src: "pages 1–3",
         page: 0,
         blocks: [
@@ -627,30 +627,30 @@ window.TOPICS = [
             "A futile intervention should not be provided. The team is not required to provide an inappropriate intervention.",
             "The physician generally continues to care for the patient, minimizing suffering and respecting dignity."
           ]},
-          { h: "Before raising concerns, ask yourself" },
+          { h: "Before Raising Concerns, Ask Yourself" },
           { ol: [
             "Would this treatment not further the patient’s goals as I understand them? Have I confirmed those goals with the patient/surrogate?",
             "Is it outside specialty standards or accepted practice, or are there competing ethical concerns? What is the basis?",
             "How comfortable would I feel if my rationale were publicly reviewed?",
-            "What are the consequences for the patient, surrogate, team or institution?",
-            "Am I sure my belief is not influenced by disability, age, race, ethnicity, religion, perceived quality of life, sexual orientation, gender identity, ability to pay, socioeconomic status, perceived social worth, immigration, incarceration or housing status, use of resources, or other psychosocial factors?"
+            "What are the consequences for the patient, surrogate, team, or institution?",
+            "Am I sure my belief is not influenced by disability, age, race, ethnicity, religion, perceived quality of life, sexual orientation, gender identity, ability to pay, socioeconomic status, perceived social worth, immigration, incarceration, or housing status, use of resources, or other psychosocial factors?"
           ]},
           { p: "The attending meets with the patient/surrogate to explain why the intervention should not be provided. Consider involving Social Work, Palliative Care, Spiritual Care, Patient Relations, or the Ethics Support Service." }
         ]
       },
       {
         id: "process",
-        title: "Steps when disagreement persists",
+        title: "Steps When Disagreement Persists",
         src: "pages 3–9",
         page: 3,
         blocks: [
-          { h: "Futile intervention" },
+          { h: "Futile Intervention" },
           { ul: [
             "Engage empathetically: understand the request, correct misunderstandings, provide support, and explain why it cannot achieve its physiologic goal and will not be provided.",
             "If disagreement persists, consider negotiation/communication/conflict-resolution help. Ensure Social Work is involved.",
             "The attending may consider a second opinion."
           ]},
-          { h: "Potentially inappropriate intervention" },
+          { h: "Potentially Inappropriate Intervention" },
           { p: "Each step in a timeframe appropriate to the clinical situation, **documented in the medical record**." },
           { ol: [
             "**Involve skilled support:** Social Work, Palliative Care, Spiritual Care, Patient Relations, or the Ethics Support Service (ESS).",
@@ -659,14 +659,14 @@ window.TOPICS = [
             "**Option to transfer** to a facility willing to provide the intervention, with reasonable BIDMC assistance.",
             "**Review Committee:** convened by the on-call ESS with an Ethics Advisory Committee co-chair. Hears from the attending and the patient/surrogate, then decides whether the process was followed and whether the intervention is inappropriate."
           ]},
-          { h: "Specialist Committee outcomes" },
+          { h: "Specialist Committee Outcomes" },
           { ul: [
             "**Agrees it is inappropriate:** attending informs the patient/surrogate of the review and conclusion. Process continues if disagreement persists.",
             "**Disagrees with the attending:** if the attending still objects, the Chief of Service tries to find another attending willing to provide it.",
             "**No consensus in the field:** if the attending still objects, the Review Committee is convened."
           ]},
           { note: "If the Review Committee finds the intervention inappropriate and transfer is not arranged within a reasonable time (**not more than 3 business days**), the patient/surrogate is told of options to seek court involvement (within not more than 3 business days). Unless there are legal barriers, BIDMC supports implementing the committee’s conclusion.", tone: "warn" },
-          { h: "During any disagreement" },
+          { h: "During Any Disagreement" },
           { p: "The attending is ultimately responsible for which interventions are and are not offered. If uncertain, consult the Ethics Support Service, BILH Office of General Counsel, and/or the relevant Chief(s) of Service." },
           { p: "Support (peer support, debriefing, employee assistance) is available for clinicians. Advise the patient/surrogate of supports such as Patient Relations." }
         ]
