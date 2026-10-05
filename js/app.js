@@ -7,6 +7,7 @@
   // Checklist state lives in memory only. Nothing is stored or sent anywhere.
   let marked = {};
   let zoom = 1;
+  let pendingWizards = [];
 
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const md = (s) =>
@@ -81,7 +82,97 @@
     const num = o.go ? steps.findIndex((s) => s.id === o.go) + 1 : 0;
     const go = num ? `<button class="go" data-go="${o.go}">Step ${num} &#8594;</button>` : "";
     const text = o.t ? (o.href ? `<a href="${o.href}">${md(o.t)} &#8594;</a>` : md(o.t)) : "";
-    return `<div class="out ${o.tone || "plain"}">${text ? `<span>${text}</span>` : ""}${go}</div>`;
+    return `<div class="out ${o.tone || "plain"}">${text ? `<span>${text}</span>` : ""}${go}${o.then ? `<small class="then">${md(o.then)}</small>` : ""}</div>`;
+  }
+
+  // One question at a time. Answers live in memory only and reset when the page is left.
+  function wizard(el, items, t) {
+    const byId = {};
+    const sectionOf = {};
+    let sec = null;
+    items.forEach((i) => {
+      if (i.section) sec = i;
+      else if (i.id) {
+        byId[i.id] = i;
+        sectionOf[i.id] = sec;
+      }
+    });
+    const first = items.find((i) => i.id).id;
+    let path = [];
+
+    function walk() {
+      let at = first;
+      let result = null;
+      const trail = path.map((k) => {
+        const s = byId[at];
+        const o = s[k];
+        const entry = { s, k, o };
+        if (o.go) at = o.go;
+        else {
+          result = o;
+          at = null;
+        }
+        return entry;
+      });
+      return { at, result, trail };
+    }
+
+    function render() {
+      const { at, result, trail } = walk();
+      const trailHtml = trail.length
+        ? `<details class="trail"><summary>Your answers (${trail.length})</summary><ol>${trail
+            .map(
+              (e, i) => `<li><button class="trail-item" data-to="${i}">
+                <span class="tq">${esc(e.s.short || e.s.q)}</span>
+                <span class="ta">${esc(e.k === "yes" ? e.s.yesLabel || "Yes" : "No")}${e.o.t && e.o.go ? " · " + esc(e.o.t) : ""}</span>
+              </button></li>`
+            )
+            .join("")}</ol><p class="trail-hint">Tap an answer to change it.</p></details>`
+        : "";
+      let main;
+      if (at) {
+        const s = byId[at];
+        const sc = sectionOf[at];
+        const defs = (s.defs || []).map((k) => defBlock(t.defs[k])).join("") + (s.def ? defBlock(s.def) : "");
+        main = `${sc ? `<div class="wiz-sec ${sc.tone || ""}">${esc(sc.section)}</div>` : ""}
+          <section class="wiz-card">
+            <div class="q">${md(s.q)}</div>
+            ${s.list ? list(s.list) : ""}
+            ${s.q2 ? `<div class="q">${md(s.q2)}</div>` : ""}
+            ${s.list2 ? list(s.list2) : ""}
+            ${defs}
+            <div class="wiz-btns">
+              <button class="ans-btn yes" data-ans="yes">${esc(s.yesLabel || "Yes")}</button>
+              <button class="ans-btn no" data-ans="no">No</button>
+            </div>
+          </section>`;
+      } else {
+        const o = result;
+        main = `<section class="wiz-result ${o.tone || ""}">
+            <div class="res-label">Result</div>
+            <div class="res-text">${md(o.t)}</div>
+            ${o.then ? `<p class="res-then">${md(o.then)}</p>` : ""}
+            ${o.href ? `<a class="btn solid" href="${o.href}">Open algorithm &#8594;</a>` : ""}
+          </section>`;
+      }
+      const nav = trail.length
+        ? `<div class="wiz-nav"><button class="btn" data-nav="back">&#8592; Back</button><button class="btn" data-nav="reset">Start over</button></div>`
+        : "";
+      el.innerHTML = trailHtml + main + nav;
+
+      el.querySelectorAll("[data-ans]").forEach((b) => (b.onclick = () => { path.push(b.dataset.ans); render(); focusTop(); }));
+      el.querySelectorAll("[data-to]").forEach((b) => (b.onclick = () => { path = path.slice(0, +b.dataset.to); render(); focusTop(); }));
+      const back = el.querySelector('[data-nav="back"]');
+      if (back) back.onclick = () => { path.pop(); render(); focusTop(); };
+      const reset = el.querySelector('[data-nav="reset"]');
+      if (reset) reset.onclick = () => { path = []; render(); focusTop(); };
+    }
+
+    function focusTop() {
+      if (el.getBoundingClientRect().top < 0) el.scrollIntoView({ block: "start" });
+    }
+
+    render();
   }
 
   function flowBlock(items, t) {
@@ -128,7 +219,10 @@
       else if (b.link) sec.push(`<p><a class="btn" href="${b.link.href}"${b.link.ext ? ' target="_blank" rel="noopener"' : ""}>${esc(b.link.t)}</a></p>`);
       else if (b.flow) {
         flush();
-        out.push(flowBlock(b.flow, t));
+        if (b.interactive) {
+          pendingWizards.push(b.flow);
+          out.push(`<div class="wiz" data-wiz="${pendingWizards.length - 1}" aria-live="polite"></div>`);
+        } else out.push(flowBlock(b.flow, t));
       }
     });
     flush();
@@ -140,6 +234,7 @@
     const v = t && t.views.find((x) => x.id === vid);
     if (!v) return notFound();
     setHeader(v.title, "#/t/" + id);
+    pendingWizards = [];
     const body = v.blocks
       ? renderBlocks(v.blocks, t)
       : `<div class="cols">${v.columns
@@ -150,6 +245,7 @@
       ${body}
       <div class="linkrow"><a class="btn" href="#/t/${id}/pages/${v.page}">See original page ${v.page + 1}</a></div>
       ${sourceLine(t, v.src || v.page)}`;
+    app.querySelectorAll(".wiz").forEach((el) => wizard(el, pendingWizards[+el.dataset.wiz], t));
     app.querySelectorAll("[data-go]").forEach((b) =>
       b.addEventListener("click", () => {
         const el = document.getElementById("step-" + b.dataset.go);
