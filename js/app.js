@@ -16,6 +16,9 @@
       .replace(/\[([^\]]+)\]\((#\/[^)\s]+)\)/g, '<a href="$2">$1</a>')
       .replace(/\n/g, "<br>");
   const topic = (id) => TOPICS.find((t) => t.id === id);
+  const backTo = (t) => "#/t/" + (t.parent || t.id);
+  const cards = (list, cls) =>
+    (list || []).map((c) => `<a class="card ${cls || ""}" href="${c.href}"><div class="t">${esc(c.t)}</div>${c.s ? `<div class="s">${esc(c.s)}</div>` : ""}</a>`).join("");
 
   function setHeader(title, backHref) {
     titleEl.textContent = title;
@@ -33,7 +36,7 @@
   function home(q) {
     setHeader(APP_TITLE, null);
     const query = (q || "").toLowerCase().trim();
-    const list = TOPICS.filter((t) => !query || (t.title + " " + t.summary + " " + t.tags).toLowerCase().includes(query));
+    const list = TOPICS.filter((t) => !t.hidden && (!query || (t.title + " " + t.summary + " " + t.tags).toLowerCase().includes(query)));
     const groups = CATEGORIES.map((c) => ({ c, items: list.filter((t) => t.category === c) })).filter((g) => g.items.length);
     app.innerHTML = `
       <input class="search" type="search" placeholder="Search documents" aria-label="Search documents" value="${esc(q || "")}" autocomplete="off">
@@ -58,11 +61,14 @@
   function topicPage(id) {
     const t = topic(id);
     if (!t) return notFound();
-    setHeader(t.title, "#/");
+    setHeader(t.title, t.parent ? "#/t/" + t.parent : "#/");
     app.innerHTML = `
+      ${t.alert ? `<div class="callout key topic-alert">${md(t.alert.t)}<small>${esc(t.alert.src)}</small></div>` : ""}
+      ${cards(t.featured, "primary")}
       ${t.tool ? `<a class="card primary" href="#/t/${id}/tool"><div class="t">${esc(t.tool.title)}</div><div class="s">Tap to mark criteria from the policy checklist</div></a>` : ""}
       ${t.views.map((v) => `<a class="card" href="#/t/${id}/view/${v.id}"><div class="t">${esc(v.title)}</div></a>`).join("")}
       <a class="card" href="#/t/${id}/pages/0"><div class="t">${esc(t.title)} Full Document</div></a>
+      ${cards(t.related)}
       ${sourceLine(t)}`;
   }
 
@@ -236,7 +242,7 @@
     const t = topic(id);
     const v = t && t.views.find((x) => x.id === vid);
     if (!v) return notFound();
-    setHeader(v.title, "#/t/" + id);
+    setHeader(v.title, backTo(t));
     pendingWizards = [];
     const body = v.blocks
       ? renderBlocks(v.blocks, t)
@@ -264,7 +270,7 @@
     const t = topic(id);
     idx = parseInt(idx, 10) || 0;
     if (!t || !t.pages[idx]) return notFound();
-    setHeader(t.title + " Full Document", "#/t/" + id);
+    setHeader(t.title + " Full Document", backTo(t));
     const n = t.pages.length;
     app.innerHTML = `
       <div class="viewer-bar">
@@ -309,7 +315,7 @@
     const t = topic(id);
     if (!t || !t.tool) return notFound();
     const tl = t.tool;
-    setHeader(tl.title, "#/t/" + id);
+    setHeader(tl.title, backTo(t));
 
     const inc = tl.inclusion.items.map((i) => itemBtn(i)).join("");
     const exc = tl.exclusion.items

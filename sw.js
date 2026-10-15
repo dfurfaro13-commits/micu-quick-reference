@@ -1,4 +1,4 @@
-const CACHE = "micu-ref-v2";
+const CACHE = "micu-ref-v3";
 self.window = self;
 importScripts("js/data.js");
 

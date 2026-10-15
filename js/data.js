@@ -134,6 +134,7 @@ window.TOPICS = [
     source: { file: "Shock Team - slide for intensivist mtg 2026-04.pdf", pages: 1, version: "Intensivist meeting slide, 2026-04. Pilot starting 5/4/26" },
     pdf: "docs/shock-team/shock-team.pdf",
     pages: pg("shock-team", 1, 792, 612, { 1: "Shock Team Pilot Phase" }),
+    alert: { t: "**To activate a shock call:** consult cardiology (CCU fellow), **pager 30557**. If inadequate response, discuss with the CCU attending (contact via paging system).", src: "Activation contact provided by MICU leadership (10/2026); not in the source slide." },
     views: [
       {
         id: "criteria",
@@ -141,7 +142,7 @@ window.TOPICS = [
         src: "page 1",
         page: 0,
         blocks: [
-          { p: "**Must meet each of the following (A, B and C):**" },
+          { p: "**Must meet each of the following (A, B, and C):**" },
           { h: "A. Hypotension" },
           { ul: ["SBP <90 mmHg for >30 minutes, **or**", "Requiring vasoactives to maintain SBP >90 mmHg or MAP >65 mmHg"] },
           { h: "B. End-organ dysfunction: at least 2 of" },
@@ -157,7 +158,8 @@ window.TOPICS = [
             "TTE with LV and/or RV dysfunction or severe valvular disease (e.g. AS, AR, MS, MR)",
             "PAC with CI <2.0 L/min/m2 or ScvO2 from central line <60% (in context of Hgb and SpO2)"
           ]},
-          { note: "“BUT – these are guidelines not a strict threshold, would encourage you to call/push to activate if concerned”", tone: "info" }
+          { note: "“BUT – these are guidelines not a strict threshold, would encourage you to call/push to activate if concerned”", tone: "info" },
+          { note: "**To activate a shock call:** consult cardiology (CCU fellow), **pager 30557**. If inadequate response, discuss with the CCU attending (contact via paging system).\nActivation contact provided by MICU leadership (10/2026); not in the source slide.", tone: "key" }
         ]
       },
       {
@@ -166,6 +168,7 @@ window.TOPICS = [
         src: "page 1",
         page: 0,
         blocks: [
+          { note: "**To activate a shock call:** consult cardiology (CCU fellow), **pager 30557**. If inadequate response, discuss with the CCU attending (contact via paging system).\nActivation contact provided by MICU leadership (10/2026); not in the source slide.", tone: "key" },
           { ul: [
             "Pilot phase starting **Monday 5/4/26**.",
             "Targeted toward advanced discussion re: cardiogenic/mixed shock patients.",
@@ -495,6 +498,8 @@ window.TOPICS = [
     tags: "dcd organ donation circulatory death neds withdrawal extubation heparin cmo pronounce declaration pr-13 or pacu",
     source: { file: "Organ donation after DCD.pdf", pages: 15, version: "Policy PR-13. Revised 3/25 (MEC 3/19/25). Next review 3/28" },
     pdf: "docs/dcd/dcd.pdf",
+    featured: [{ href: "#/t/dcd-attending/view/attending", t: "The 1-2-3 of DCD for the ICU Attending", s: "Your responsibilities as ICU attending for every DCD patient" }],
+    related: [{ href: "#/t/dcd-attending/pages/0", t: "ICU Attending DCD Half Sheet Full Document" }],
     pages: pg("dcd", 15, 612, 792, { 1: "Policy", 5: "Donor Management", 6: "Transport, Extubation, and Determining Death", 8: "Attachments and Approvals", 9: "Attachment A: Flowchart", 10: "Attachment B: Workflow Checklist", 11: "Attachment B (cont.)", 12: "Attachment B: OR vs PACU", 13: "Attachment C: Declaration of Death Checklist", 14: "Attachment D: Consent for Donor Management", 15: "Attachment E: Maastricht and UDDA" }),
     views: [
       {
@@ -593,6 +598,38 @@ window.TOPICS = [
           { p: "Pre-mortem procedures needing signed BIDMC consent may include arterial line insertion and bronchoscopy for lung evaluation." },
           { p: "NEDS is responsible for costs from family permission until donation (or until no longer a candidate), including labs and medications ordered to assess suitability." },
           { link: { t: "Step-by-step educational video (linked in policy)", href: "https://vimeo.com/1111652418?share=copy#t=373", ext: true } }
+        ]
+      }
+    ]
+  },
+
+  {
+    id: "dcd-attending",
+    hidden: true,
+    parent: "dcd",
+    category: "Death, Donation, and Ethics",
+    title: "ICU Attending DCD Half Sheet",
+    summary: "The 1-2-3 of DCD for the ICU Attending",
+    tags: "dcd attending half sheet huddle resource nurse neds or extubation pr-13",
+    source: { file: "ICU Attending DCD Half Sheet.pdf", pages: 1, version: "No version or date stated in source" },
+    pdf: "docs/dcd-attending/dcd-attending.pdf",
+    pages: pg("dcd-attending", 1, 612, 396, { 1: "The 1-2-3 of DCD for the ICU Attending" }),
+    views: [
+      {
+        id: "attending",
+        title: "The 1-2-3 of DCD for the ICU Attending",
+        src: "page 1",
+        page: 0,
+        blocks: [
+          { p: "With any DCD patient, you, as the ICU attending, are responsible for the below:" },
+          { ol: [
+            "Read and print out **hospital policy PR-13**.",
+            "**Coordinate with the resource nurse** and **call a huddle** with the ICU team, OR staff, and NEDS Coordinator. **Run the checklist** in PR-13 Attachment B.",
+            "**Go to the OR and remain present** at least through extubation. Decide among your team who will remain present through the 2 hours between extubation and declaration."
+          ]},
+          { note: "Patients undergoing DCD remain our patients until death. Please ensure they receive the same compassionate care as any patient undergoing withdrawal of life-sustaining treatment, with an unwavering commitment to comfort, dignity, and respect.", tone: "key" },
+          { link: { t: "Policy PR-13 Full Document", href: "#/t/dcd/pages/0" } },
+          { link: { t: "PR-13 Attachment B: Workflow Checklist", href: "#/t/dcd/pages/9" } }
         ]
       }
     ]
